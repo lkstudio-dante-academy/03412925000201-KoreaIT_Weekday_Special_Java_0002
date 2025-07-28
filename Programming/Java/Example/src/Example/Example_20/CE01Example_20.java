@@ -1,0 +1,64 @@
+package Example.Example_20;
+
+/*
+ * Object 클래스란?
+ * - Java 에 존재하는 모든 클래스가 직/간접적으로 상속하는 클래스를 의미한다. (+ 즉, Object 클래스는
+ * 모든 클래스의 최상위 클래스라는 것을 알 수 있다.)
+ *
+ * Object 클래스에는 finalize 메서드를 비롯한 다양한 메서드가 존재하며 Java 의 모든 클래스는 해당 메서드를
+ * 활용하는 것이 가능하다. (+ 즉, 필요에 따라 재정의해서 활용하는 것이 가능하다.)
+ *
+ * Ex)
+ * class CSomeClass {
+ * 		@Override
+ * 		public String toString() {
+ * 			return "클래스 정보";
+ * 		}
+ * }
+ *
+ * CSomeClass oSomeObj = new CSomeClass();
+ * System.out.println(oSomeObj);
+ *
+ * 위와 같이 Object 클래스에는 toString 메서드가 존재하며 해당 메서드가 존재하기 때문에
+ * System.out.println 메서드에 객체를 전달하는 것이 가능하다. (+ 즉, System.out.println 메서드 내부에서
+ * 입력으로 전달 된 객체의 toString 메서드를 호출한다는 것을 알 수 있다.)
+ */
+
+/**
+ * Example 20 (Object 클래스)
+ */
+public class CE01Example_20 {
+	/** 초기화 */
+	public static void start(String[] args) {
+		CWidget oWidget = new CWidget(10, 3.14f);
+		
+		/*
+		 * 클래스는 참조 형식 자료형이기 때문에 아래와 같이 특정 클래스 형 변수를 다른 변수에 할당하면
+		 * 얕은 복사가 이루어진다. (+ 즉, 사본 변수가 참조하는 객체를 변경했을 경우 원본 변수도 영향을
+		 * 받는다는 것을 알 수 있다.)
+		 */
+		CWidget oWidget_CloneA = oWidget;
+		oWidget_CloneA.setVal_Int(20);
+		
+		/*
+		 * clone 메서드란?
+		 * - 사본 객체를 생성하는 역할을 수행하는 메서드를 의미한다. (+ 즉, clone 메서드를 활용하면
+		 * 내부적으로 깊은 복사를 통해 완전한 사본 객체를 생성한다는 것을 알 수 있다.)
+		 *
+		 * 단, 사본 객체를 생성하기 위해서는 해당 객체의 클래스에 clone 메서드를 재정의해줘야한다. (+ 즉,
+		 * Object 클래스에 존재하는 clone 메서드를 호출 할 경우 내부적으로
+		 * CloneNotSupportedException 예외가 발생한다는 것을 알 수 있다.)
+		 */
+		CWidget oWidget_CloneB = (CWidget)oWidget.clone();
+		oWidget_CloneB.setVal_Int(30);
+		
+		System.out.println("=====> 원본 객체 <=====");
+		System.out.println(oWidget);
+		
+		System.out.println("\n=====> 사본 객체 - A <=====");
+		System.out.println(oWidget_CloneA);
+		
+		System.out.println("\n=====> 사본 객체 - B <=====");
+		System.out.println(oWidget_CloneB);
+	}
+}
