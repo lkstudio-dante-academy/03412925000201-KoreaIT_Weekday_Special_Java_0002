@@ -21,6 +21,17 @@ import java.util.Scanner;
 public class CT01Training_02 {
 	/** 초기화 */
 	public static void start(String[] args) {
-		// Do Something
+		Scanner oScanner = new Scanner(System.in);
+		System.out.print("정수 (2 개) 입력 : ");
+		
+		int nValA = oScanner.nextInt();
+		int nValB = oScanner.nextInt();
+		
+		int nBoolean_ValA = (nValA != 0) ? 1 : 0;
+		int nBoolean_ValB = (nValB != 0) ? 1 : 0;
+		
+		System.out.println("\n=====> 결과 <=====");
+		System.out.printf("%d && %d = %s\n", nValA, nValB, (nBoolean_ValA * nBoolean_ValB) != 0);
+		System.out.printf("%d || %d = %s\n", nValA, nValB, (nBoolean_ValA + nBoolean_ValB) != 0);
 	}
 }
