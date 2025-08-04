@@ -53,6 +53,9 @@ import Training.Training_06.CT01Training_06;
 import Training.Training_07.CT01Training_07;
 import Training.Training_08.CT01Training_08;
 import Training.Training_09.CT01Training_09;
+import Training.Training_10.CT01Training_10;
+import Training.Training_11.CT01Training_11;
+import Training.Training_12.CT01Training_12;
 
 /*
  * 클래스 (Class) 란?
@@ -136,6 +139,9 @@ public class Main {
 //		CT01Training_06.start(args);
 //		CT01Training_07.start(args);
 //		CT01Training_08.start(args);
-		CT01Training_09.start(args);
+//		CT01Training_09.start(args);
+//		CT01Training_10.start(args);
+//		CT01Training_11.start(args);
+		CT01Training_12.start(args);
 	}
 }
