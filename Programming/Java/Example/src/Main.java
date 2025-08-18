@@ -135,8 +135,8 @@ public class Main {
 //		CE01Example_21.start(args);
 //		CE01Example_22.start(args);
 //		CE01Example_23.start(args);
-		CE01Example_24.start(args);
-//		CE01Example_25.start(args);
+//		CE01Example_24.start(args);
+		CE01Example_25.start(args);
 //		CE01Example_26.start(args);
 //		CE01Example_27.start(args);
 //		CE01Example_28.start(args);
