@@ -38,10 +38,12 @@ public class CT01Training_25 {
 	/** 우선 순위를 반환한다 */
 	private static int getPriority(String a_oOperator, boolean a_bIsPush) {
 		switch(a_oOperator) {
-			case "+": case "-":
+			case "+":
+			case "-":
 				return 2;
-				
-			case "*": case "/":
+			
+			case "*":
+			case "/":
 				return 1;
 		}
 		
@@ -50,10 +52,10 @@ public class CT01Training_25 {
 	
 	/** 토큰을 반환한다 */
 	private static String getToken(String a_oExpression, int a_nIdx_Start) {
-		String oToken = "";
+		StringBuilder oToken = new StringBuilder();
 		
 		for(int i = a_nIdx_Start; i < a_oExpression.length(); ++i) {
-			oToken += String.format("%c", a_oExpression.charAt(i));
+			oToken.append(String.format("%c", a_oExpression.charAt(i)));
 			
 			boolean bIsDigit = i + 1 < a_oExpression.length();
 			bIsDigit = bIsDigit && DIGITS.contains(String.format("%c", a_oExpression.charAt(i)));
@@ -65,17 +67,52 @@ public class CT01Training_25 {
 			}
 		}
 		
-		return oToken;
+		return oToken.toString();
 	}
 	
 	/** 수식 결과를 반환한다 */
 	private static double getResult_Calc(String a_oExpression) {
-		return 0.0;
+		String oPostfix = infix_ToPostfix(a_oExpression);
+		Stack<Double> oStackOperands = new Stack<>();
+		
+		int nIdx = 0;
+		
+		while(nIdx < oPostfix.length()) {
+			String oToken = getToken(oPostfix, nIdx);
+			nIdx += oToken.length();
+			
+			// 공백 일 경우
+			if(Character.isWhitespace(oToken.charAt(0))) {
+				continue;
+			}
+			
+			// 연산자 일 경우
+			if(OPERATORS.contains(oToken)) {
+				double dblRhs = oStackOperands.pop();
+				double dblLhs = oStackOperands.pop();
+				
+				double dblResult = switch(oToken) {
+					case "+" -> dblLhs + dblRhs;
+					case "-" -> dblLhs - dblRhs;
+					case "*" -> dblLhs * dblRhs;
+					case "/" -> dblLhs / dblRhs;
+					default -> 0.0;
+				};
+				
+				oStackOperands.push(dblResult);
+				continue;
+			}
+			
+			double dblOperand = Double.parseDouble(oToken);
+			oStackOperands.push(dblOperand);
+		}
+		
+		return oStackOperands.pop();
 	}
 	
 	/** 중위 -> 후위 표기법을 변환한다 */
 	private static String infix_ToPostfix(String a_oInfix) {
-		String oPostfix = "";
+		StringBuilder oPostfix = new StringBuilder();
 		Stack<String> oStackOperators = new Stack<>();
 		
 		int nIdx = 0;
@@ -91,7 +128,7 @@ public class CT01Training_25 {
 			
 			// 피연산자 일 경우
 			if(!OPERATORS.contains(oToken)) {
-				oPostfix += String.format("%s ", oToken);
+				oPostfix.append(String.format("%s ", oToken));
 				continue;
 			}
 			
@@ -105,7 +142,7 @@ public class CT01Training_25 {
 						break;
 					}
 					
-					oPostfix += oOperator;
+					oPostfix.append(oOperator);
 				}
 				
 				continue;
@@ -122,14 +159,16 @@ public class CT01Training_25 {
 					break;
 				}
 				
-				oPostfix += oStackOperators.pop();
+				oPostfix.append(oStackOperators.pop());
 			}
+			
+			oStackOperators.push(oToken);
 		}
 		
 		while(!oStackOperators.empty()) {
-			oPostfix += oStackOperators.pop();
+			oPostfix.append(oStackOperators.pop());
 		}
 		
-		return oPostfix;
+		return oPostfix.toString();
 	}
 }
