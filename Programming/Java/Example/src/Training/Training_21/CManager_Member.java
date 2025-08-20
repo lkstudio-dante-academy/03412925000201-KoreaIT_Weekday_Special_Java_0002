@@ -1,5 +1,7 @@
 package Training.Training_21;
 
+import java.io.*;
+
 /**
  * 회원 관리자
  */
@@ -69,5 +71,47 @@ public class CManager_Member {
 		}
 		
 		return -1;
+	}
+	
+	/** 회원을 로드한다 */
+	public void loadMembers_FromFile(String a_oPath_File) {
+		File oFile = new File(a_oPath_File);
+		
+		// 로드가 불가능 할 경우
+		if(!oFile.exists()) {
+			return;
+		}
+		
+		try(BufferedReader oReader = new BufferedReader(new FileReader(oFile))) {
+			m_nCount_Member = 0;
+			
+			while(oReader.ready()) {
+				String oInfo_Member = oReader.readLine();
+				String[] oTokens = oInfo_Member.split(",");
+				
+				this.addMember(oTokens[0], oTokens[1]);
+			}
+		} catch(Exception oException) {
+			oException.printStackTrace();
+		}
+	}
+	
+	/** 회원을 저장한다 */
+	public void saveMembers_ToFile(String a_oPath_File) {
+		File oFile = new File(a_oPath_File);
+		
+		try(BufferedWriter oWriter = new BufferedWriter(new FileWriter(oFile))) {
+			for(int i = 0; i < m_nCount_Member; ++i) {
+				String oName = m_oMembers[i].getName();
+				String oPNumber = m_oMembers[i].getPNumber();
+				
+				String oInfo_Member = String.format("%s,%s", oName, oPNumber);
+				
+				oWriter.write(oInfo_Member);
+				oWriter.newLine();
+			}
+		} catch(Exception oException) {
+			oException.printStackTrace();
+		}
 	}
 }

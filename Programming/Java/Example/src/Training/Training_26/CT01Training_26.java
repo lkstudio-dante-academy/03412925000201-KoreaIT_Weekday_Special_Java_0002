@@ -1,9 +1,9 @@
-package Training.Training_24;
+package Training.Training_26;
 
 /*
- * Java 연습 문제 24
- * - 회원 관리 프로그램 제작하기 (+ 예외 처리 활용)
- * - 요구 사항은 연습 문제 21 번 참고
+ * Java 연습 문제 26
+ * - 회원 관리 프로그램 제작하기 (+ 파일 활용)
+ * - 요구 사항 연습 문제 21 번 참고
  */
 
 import Training.Training_21.CManager_Member;
@@ -11,13 +11,15 @@ import Training.Training_21.CManager_Member;
 import java.util.Scanner;
 
 /**
- * Training 24
+ * Training 26
  */
-public class CT01Training_24 {
+public class CT01Training_26 {
 	/** 초기화 */
 	public static void start(String[] args) {
 		Scanner oScanner = new Scanner(System.in);
+		
 		CManager_Member oManager = new CManager_Member();
+		oManager.loadMembers_FromFile("P_T01Training_26_01.txt");
 		
 		do {
 			printMenu();
@@ -28,32 +30,29 @@ public class CT01Training_24 {
 				break;
 			}
 			
-			try {
-				switch (nMenu) {
-					case MENU_ADD_MEMBER:
-						addMember(oManager);
-						break;
-					
-					case MENU_REMOVE_MEMBER:
-						removeMember(oManager);
-						break;
-					
-					case MENU_SEARCH_MEMBER:
-						searchMember(oManager);
-						break;
-					
-					case MENU_UPDATE_MEMBER:
-						updateMember(oManager);
-						break;
-					
-					case MENU_SHOW_MEMBERS_ALL:
-						printMembers_All(oManager);
-						break;
-				}
-			} catch(Exception oException) {
-				System.out.println(oException.getMessage());
+			switch(nMenu) {
+				case MENU_ADD_MEMBER:
+					addMember(oManager);
+					break;
+				
+				case MENU_REMOVE_MEMBER:
+					removeMember(oManager);
+					break;
+				
+				case MENU_SEARCH_MEMBER:
+					searchMember(oManager);
+					break;
+				
+				case MENU_UPDATE_MEMBER:
+					updateMember(oManager);
+					break;
+				
+				case MENU_SHOW_MEMBERS_ALL:
+					printMembers_All(oManager);
+					break;
 			}
 			
+			oManager.saveMembers_ToFile("P_T01Training_26_01.txt");
 			System.out.println();
 		} while(true);
 		
@@ -84,7 +83,7 @@ public class CT01Training_24 {
 	}
 	
 	/** 회원을 추가한다 */
-	private static void addMember(CManager_Member a_oManager) throws Exception {
+	private static void addMember(CManager_Member a_oManager) {
 		Scanner oScanner = new Scanner(System.in);
 		
 		System.out.print("이름 입력 : ");
@@ -97,7 +96,8 @@ public class CT01Training_24 {
 		
 		// 회원이 존재 할 경우
 		if(nResult >= 0) {
-			throw new CException_Duplicate(oName);
+			System.out.printf("%s 은(는) 이미 존재하는 회원입니다.\n", oName);
+			return;
 		}
 		
 		a_oManager.addMember(oName, oPNumber);
@@ -105,7 +105,7 @@ public class CT01Training_24 {
 	}
 	
 	/** 회원을 제거한다 */
-	private static void removeMember(CManager_Member a_oManager) throws Exception {
+	private static void removeMember(CManager_Member a_oManager) {
 		Scanner oScanner = new Scanner(System.in);
 		
 		System.out.print("이름 입력 : ");
@@ -115,7 +115,8 @@ public class CT01Training_24 {
 		
 		// 회원이 없을 경우
 		if(nResult < 0) {
-			throw new CException_Missing(oName);
+			System.out.printf("%s 은(는) 존재하지않습니다.\n", oName);
+			return;
 		}
 		
 		a_oManager.removeMember(oName);
@@ -123,7 +124,7 @@ public class CT01Training_24 {
 	}
 	
 	/** 회원을 검색한다 */
-	private static void searchMember(CManager_Member a_oManager) throws Exception {
+	private static void searchMember(CManager_Member a_oManager) {
 		Scanner oScanner = new Scanner(System.in);
 		
 		System.out.print("이름 입력 : ");
@@ -133,7 +134,8 @@ public class CT01Training_24 {
 		
 		// 회원이 없을 경우
 		if(nResult < 0) {
-			throw new CException_Missing(oName);
+			System.out.printf("%s 은(는) 존재하지않습니다.\n", oName);
+			return;
 		}
 		
 		System.out.println("=====> 회원 정보 <=====");
@@ -141,7 +143,7 @@ public class CT01Training_24 {
 	}
 	
 	/** 회원을 갱신한다 */
-	private static void updateMember(CManager_Member a_oManager) throws Exception {
+	private static void updateMember(CManager_Member a_oManager) {
 		Scanner oScanner = new Scanner(System.in);
 		
 		System.out.print("이름 입력 : ");
@@ -151,7 +153,8 @@ public class CT01Training_24 {
 		
 		// 회원이 없을 경우
 		if(nResult < 0) {
-			throw new CException_Missing(oName);
+			System.out.printf("%s 은(는) 존재하지않습니다.\n", oName);
+			return;
 		}
 		
 		System.out.print("새로운 이름 입력 : ");

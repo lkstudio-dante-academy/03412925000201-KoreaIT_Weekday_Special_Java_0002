@@ -18,6 +18,11 @@ public class CMember {
 		return m_oName;
 	}
 	
+	/** 전화 번호를 반환한다 */
+	public String getPNumber() {
+		return m_oPNumber;
+	}
+	
 	/** 이름을 변경한다 */
 	public void setName(String a_oName) {
 		m_oName = a_oName;

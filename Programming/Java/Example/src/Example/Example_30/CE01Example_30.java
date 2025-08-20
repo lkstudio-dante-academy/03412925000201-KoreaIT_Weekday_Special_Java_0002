@@ -54,7 +54,7 @@ public class CE01Example_30 {
 		 * - DB 를 제어하는 역할을 수행하는 클래스를 의미한다. (+ 즉, Connection 클래스를 활용하면
 		 * DB 에 SQL 구문을 실행하는 등의 작업을 처리하는 것이 가능하다.)
 		 */
-		try(Connection oConnection = DriverManager.getConnection("jdbc:sqlite:P_E01Example_33_01.db")) {
+		try(Connection oConnection = DriverManager.getConnection("jdbc:sqlite:P_E01Example_30_01.db")) {
 			String oSQL_CreateTable = "CREATE TABLE IF NOT EXISTS MemberTable(Name TEXT PRIMARY KEY, PNumber TEXT)";
 			
 			/*

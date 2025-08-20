@@ -63,8 +63,8 @@ import java.nio.ByteBuffer;
 public class CE01Example_29 {
 	/** 초기화 */
 	public static void start(String[] args) {
-		File oFileA = new File("P_E01Example_18_01.txt");
-		File oFileB = new File("P_E01Example_18_02.bin");
+		File oFileA = new File("P_E01Example_29_01.txt");
+		File oFileB = new File("P_E01Example_29_02.bin");
 		
 		try {
 			/*
